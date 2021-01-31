@@ -1,0 +1,39 @@
+        <!--Sidebar Menu-->
+<div class="ui vertical inverted right sidebar menu">
+  <%if(currentUser) { %>
+  <span class="active item"><%= currentUser.email %></span>
+  <%}%>
+  <a href="/" class="item">Home</a>
+  <a href="/blog?page=1&limit=5" class="item">Blog</a>
+      <% if(currentUser) {%>
+        <% if(currentUser.role !== "user") { %>
+        <a href="/blog/new" class="item">New Post</a>
+        <%}%>
+      <a href="/auth/logout" class="item">Log out</a>
+      <%} else {%>
+      <a href="/auth/login" class="item">Log in</a>
+      <%}%>
+</div>
+<!-- Main menu -->
+<div class="ui secondary top fixed violet inverted menu" id="main-menu">
+  <div class="ui container">
+    <span class="logo"><i class="pencil alternate icon"></i>Express Blog</span>
+    <div class="left item">
+      <a href="/" class="main-menu item">Home</a>
+      <a href="/blog?page=1&limit=5" class="main-menu item">Blog</a>
+        <% if( currentUser && currentUser.role !== "user") { %>
+        <a href="/blog/new" class="main-menu item">New Post</a>
+        <%}%>
+    </div>
+    <div class="right item">
+      <a id="hamburger" class="toc item"><i class="sidebar icon"></i></a>
+      <% if(currentUser) {%>
+      <span class="main-menu item"><%= currentUser.email %></span>
+      <a href="/auth/logout" class="main-menu item">Log out</a>
+      <%} else {%>
+      <a href="/auth/login" class="main-menu item">Log in</a>
+      <%}%>
+    </div>
+  </div>
+</div>
+

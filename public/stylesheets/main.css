@@ -1,0 +1,125 @@
+i.icon {
+  font-size: 1.5em;
+}
+.ui.main.text.container,
+.container.main {
+  margin-top: 7em;
+  margin-bottom: 20em;
+  padding-bottom: 1em;
+  position: relative;
+}
+/* NAVBAR */
+#hamburger {
+  display: none;
+}
+.logo {
+  margin: auto 5em auto 0.5em;
+  color: #f3f3f3;
+}
+.main-menu.item {
+  margin: -0.8em auto !important;
+}
+/* LANDING PAGE */
+#landing-hero {
+  margin-top: 2.7em;
+  height: calc(100vh - 2.7em);
+  background: linear-gradient(
+      180deg,
+      rgba(100, 53, 201, 0.11248249299719892) 0%,
+      rgba(255, 255, 255, 0.5802696078431373) 91%
+    ),
+    center / cover no-repeat url('../img/hero.jpg');
+}
+#landing-hero .ui.text.container {
+  margin-top: 15%;
+}
+/* BLOG POST LIST */
+.post-image-container {
+  margin-left: 0 !important;
+  min-height: 250px;
+  min-width: 360px;
+}
+.post-image {
+  min-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  text-indent: 100%;
+}
+.post-blog {
+  max-width: 900px;
+}
+/* SINGLE POST */
+.single-post-body,
+.single-post-meta-content {
+  margin: 1em 0;
+}
+.single-post-meta-content {
+  color: #666;
+  font-size: 0.8em;
+}
+/* CODE SNIPPETS */
+pre {
+  border-radius: 0.5em;
+}
+#delete-post,
+#edit-post {
+  display: inline;
+}
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+}
+/* AUTH FORMS */
+.ui.centered.grid.authForm {
+  max-width: 40em;
+  margin: 0 auto;
+}
+.ui.centered.grid.authForm > .ui.segment {
+  padding: 2em 1em;
+}
+.ui.centered.grid.authForm > .ui.segment > form {
+  margin: 0;
+}
+.ui.centered.grid.authForm > .ui.segment > form > .row button {
+  margin-left: 1em;
+}
+/* CUSTOM VALIDATION ERROR MESSAGES */
+.ui.w-90.error.message {
+  width: 95%;
+  margin-left: 1em;
+}
+
+@media (max-width: 900px) {
+  /* NAVBAR */
+  #hamburger {
+    display: block;
+    margin: -1em;
+  }
+  .main-menu {
+    display: none !important;
+  }
+}
+.vertical.footer.segment {
+  position: absolute;
+  bottom: 0;
+  margin-top: 5em;
+  left: 0;
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .ui.main.text.container,
+  .container.main {
+    margin-bottom: 35em;
+  }
+  .post-image-container {
+    margin-right: 0 !important;
+    min-width: 300px;
+  }
+}
+@media (max-width: 416px) {
+  .ui.w-90.error.message {
+    width: 92%;
+    margin-left: 1em;
+  }
+}

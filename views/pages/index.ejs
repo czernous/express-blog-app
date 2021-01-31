@@ -1,0 +1,92 @@
+<div class="ui container main">
+    <div class="twelve column row ui huge header">
+        <h1>Blog</h1>
+    </div>
+    <div class="ui labeled icon top right pointing dropdown button">
+        <i class="filter icon"></i>
+        <span class="text">Filter Posts</span>
+            <div class="menu">
+            <a class="item" href="/blog?page=1&limit=5">Clear filter</a>       
+                <%  categories.forEach(c => { %>  
+                    <div class="item">
+                    <a href="?category=<%=c.name%>&page=1&limit=5"><%=c.name%></a>
+                    </div>                                 
+                <%}); %>
+                <div class="ui hidden divider"></div>
+            </div>
+        </div>
+    <% if (searchError === true) { %>
+        <div class="ui negative message transition">
+        <div class="header">
+            Oops! No posts found...
+        </div>
+        <% if (filterCategory) { %>
+            There are no posts under such category. 
+            You can <a href="/blog">see all posts</a> or <a href="?page=1&limit=5">go back</a>.        
+        <%} else {%>
+            Looks like no posts were created yet. 
+            You can <%if(currentUser && currentUser.role !== 'user') {%>create a <a href="/blog/new">new post</a> or <%}%> return to the <a href="/">home page</a>. 
+        <%}%>
+        </div>
+    <%} %>   
+    <% posts.forEach(post => { %>
+    <div class="ui devided items post-blog">
+        <div class="item">
+            <div class="ui fluid placeholder post-image-container medium image">
+                <img class="post-image ui fluid image" data-src="<%= post.image%>" height="100%" width="100%" alt="<%= post.title %> cover image" src="/img/null.png" >
+            </div>
+            <div class="content">
+                <a class="header"><%= post.title %></a>
+            <div class="meta">
+                <span class="posted-date"><%= post.createdAt.toDateString() %></span>
+                <% if(post.category) {%>
+                <div class="ui label">
+                    <%=post.category%>
+                </div>
+                <%}%>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="description">
+                <p class="post-summary">
+                <%= post.summary.substring(0, 250)%></p>
+            </div>
+            <div class="ui hidden divider"></div>
+            <a class="ui floated basic violet button" href="/blog/<%= post.slug %>">Read More</a>
+            </div>
+        </div>    
+    </div>
+    <% });%>
+    <%
+    let categoryFilter;
+    filterCategory ? categoryFilter = `category=${filterCategory}&` : categoryFilter=''; %>
+            <div class="pagination-container row">
+                <% if (pages > 1) { %>
+                <div class="ui centered pagination menu">
+                    <% if (current == 1) { %>
+                        <a class="disabled item">First</a>
+                    <% } else { %>
+                        <a class="item" href="/blog/?<%=categoryFilter%>page=1&limit=<%=limit%>">First</a>
+                    <% } %>
+                    <% let i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <a class="disabled item">...</a>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <a class="active item"><%= i %></a>
+                        <% } else { %>
+                           <a class="item" href="/blog/?<%=categoryFilter%>page=<%= i %>&limit=<%=limit%>"><%= i %></a>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <a class="disabled item">...</a>
+                        <% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <a class="disabled item">Last</a>
+                    <% } else { %>
+                        <a class="item" href="/blog/?<%=categoryFilter%>page=<%= pages %>&limit=<%=limit%>">Last</a>
+                    <% } %>
+                </div>
+            <% } %>
+            </div>    
+</div>

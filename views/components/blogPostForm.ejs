@@ -1,0 +1,112 @@
+
+ <div class="ui main text container segment">
+    <div class="ui huge header">
+        <%=blogPostForm.name%>
+        <% if (blogPostForm.type === 'edit') { %>
+            <%=post.title%>
+        <%}%>
+        
+    </div>
+    <form id="addCat" action="/blog/categories" method="POST"></form>
+    <form id="addPost" class="ui form" action=<%=blogPostForm.action%> method=<%=blogPostForm.method%> class="ui form">
+        <div class="field">
+            <label>Title</label>
+            <input 
+                type="text" 
+                id="postTitle"
+                name="post[title]" 
+                placeholder="Title" 
+                <%=blogPostForm.name%>
+                <% if (blogPostForm.type === 'edit') { %>
+                value="<%=post.title%>"
+                <%}%>
+             />
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input 
+                type="text" 
+                id="postImage"
+                name="post[image]" 
+                placeholder="Image url" 
+                <%=blogPostForm.name%>
+                <% if (blogPostForm.type === 'edit') { %>
+                value="<%=post.image%>"
+                <%}%>
+            />
+        </div>
+        <div class="field">
+            <% 
+            let cat = '';
+            blogPostForm.type === 'edit' ? cat = post.category : cat = 'select a category';
+            %>
+            <label>Category</label>
+            <% if(categories.length === 0) { %>
+               <p>Please add a category</p>
+               <%} else {%>
+                    <div class="field">
+                        <select id="postCategory"class="ui dropdown" name="post[category]" form="addPost">
+                            <option value="<%=cat%>"><%=cat%></option>
+                            <%categories.forEach(category => { %>
+                                <% if(category.name !== cat) { %>
+                                    <option value="<%=category.name%>"><%=category.name%></option>
+                                <%}%>
+                            <%}); %>
+                        </select>
+                    </div>
+                <%}%>
+            <% if (blogPostForm.renderAddCategory) { %>    
+            <div class="field">
+             <% if(error && error.length) {%>
+                <div class="ui negative message row">
+                    <i class="msg close icon"></i>
+                    <div class="header">
+                        There was an error with your submission
+                    </div>
+                    <p><%= error %></p>                                    
+                </div>
+                <% } %>
+             <% if(success && success.length) {%>
+                <div class="ui positive message row">
+                    <i class="msg close icon"></i>
+                    <div class="header">
+                        Sumbission accepted
+                    </div>
+                    <p><%= success %></p>                                    
+                </div>
+                <% } %>  
+                <input 
+                    id="addPostCategory"
+                    type="text" 
+                    name="category[name]" 
+                    form="addCat" 
+                    <% if(blogPostForm.type === 'edit') { %>
+                    value="<%=cat%>" 
+                    <%}%>
+                    placeholder="add a category" 
+                />
+            </div>
+            <button class="ui violet small button" type="submit" form="addCat" data-inverted="" data-tooltip="The page will be reloaded" data-position="right center">Add</button>
+            <%}%>
+        </div>
+        <div class="field">
+            <label>Post</label>
+            <textarea id="tiny-mce" name="post[body]" form="addPost" placeholder="Type your post here" minlength="50">
+                <% if (blogPostForm.type === 'edit') { %>
+                <%=post.body%>
+                <%}%>
+            </textarea>
+        </div>
+        <div class="field">
+            <label>Summary</label>
+            <textarea id="postSummary" name="post[summary]" form="addPost" placeholder="Post summary (optional)" maxlength="250"><% if (blogPostForm.type === 'edit') { %><%=post.summary%><%}%></textarea>
+         </div>     
+        <button class="ui violet big button submitFormBtn" type="submit" form="addPost">Submit</button>
+        <div class="ui error message"></div>
+    </form>
+</div>
+ <div class="ui hidden divider"></div>
+ <link rel="stylesheet" type="text/css" href="/tinymce/prism.css">
+<script src="/tinymce/prism.js"></script>
+<script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+<script type="application/javascript" src= "/scripts/tinyMCE-config.js"></script>

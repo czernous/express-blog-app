@@ -1,0 +1,42 @@
+<div class="ui main container">
+    <div class="ui centered grid authForm"> 
+        <h1 class="ui">Enter your details</h1>  
+        <% if(error && error.length) {%>
+        <div class="ui negative message row">
+            <i class="msg close icon"></i>
+            <div class="header">
+                There was an error with your submission
+            </div>
+            <p><%= error %></p>                                    
+        </div>
+        <% } %>          
+        <div class="ui segment">
+            <form id="registerUser" class="ui form two column stackable grid" action="/auth/register" method="POST">
+                <div class="row">
+                    <div class="field column">
+                        <label>First name</label>
+                        <input type="text" name="firstName" placeholder="First Name">
+                    </div>
+                    <div class="field column">
+                        <label>Last name</label>
+                        <input type="text" name="lastName" placeholder="Last Name">
+                    </div>                
+                </div>            
+                <div class="row">
+                    <div class="field column">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="Email">
+                    </div>
+                    <div class="field column">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>                
+                </div>
+                <div class="row">
+                    <button class="ui violet button submitFormBtn" type="submit">Submit</button>
+                </div>
+                    <div class="ui w-90 error message"></div>
+            </form>
+        </div>
+    </div>
+</div>
